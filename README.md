@@ -1,9 +1,28 @@
 # Retail Sales Data Pipeline | Azure Data Engineering Project
 
 ## Project Overview
+This project demonstrates an end-to-end Azure Data Engineering solution for a retail sales business. The goal is to ingest data from multiple sources, process it through a Medallion Architecture, apply data quality rules, and make the final data available for reporting and analytics.
 
-This project demonstrates an end-to-end Azure Data Engineering pipeline built using Medallion Architecture (Bronze, Silver, and Gold layers). The solution ingests data from multiple source systems, performs transformations and validations using Azure Data Factory, stores data in Azure Data Lake Storage Gen2, and loads business-ready datasets into Azure SQL Database for reporting and analytics.
+The pipeline uses Azure Data Factory for orchestration, ADLS Gen2 for data lake storage, Databricks/PySpark for transformations, Azure SQL Database for serving curated data, Azure Key Vault for secure credential management, and Power BI for business reporting.
 
+## Business Problem
+A retail company receives sales, customers, products, and store data from different systems such as REST APIs, SQL databases, and CSV files. The existing process is manual, time-consuming, and prone to data quality issues.
+
+The business needs an automated cloud-based pipeline that can:
+- ingest data from multiple sources
+- store raw data securely
+- clean and validate records
+- create business-ready tables
+- support reporting in Power BI
+- improve data reliability and refresh efficiency
+
+## Solution
+Designed and implemented a modern Azure Data Engineering pipeline following Medallion Architecture:
+
+- Bronze Layer: raw data ingestion
+- Silver Layer: cleaned and validated data
+- Gold Layer: analytics-ready business tables
+- Serving Layer: Azure SQL Database and Power BI
 
 ## Architecture Flow
 REST API / SQL / CSV
@@ -35,8 +54,8 @@ Draw.io
 
 **Source Systems**
 REST API
-- https://jsonplaceholder.typicode.com/users
-- https://jsonplaceholder.typicode.com/posts
+- JSONPlaceholder Users API
+- JSONPlaceholder Posts API
 SQL Tables
 - customers
 - products
@@ -44,16 +63,15 @@ SQL Tables
 - orders
 - sales
 CSV File
-inventory_updates.csv
+- inventory_updates.csv
 
 **Medallion Architecture**
-Bronze Layer
-- Stores raw ingested data from API, SQL, and CSV sources in CSV format.
-Silver Layer
-- Contains cleaned and validated datasets transformed using ADF Mapping Data Flows and stored in Parquet format.
-Gold Layer
+**Bronze Layer**
+- Stores raw ingested data from REST API, SQL tables, and CSV files without applying transformations.
+**Silver Layer**
+- Contains cleaned, validated, and standardized datasets transformed using ADF Mapping Data Flows and stored in Parquet format.
+**Gold Layer**
 - Contains business-ready aggregated datasets for reporting and analytics.
-
 Gold datasets created:
 - sales_summary_gold
 - category_sales_summary_gold
